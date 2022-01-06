@@ -3,10 +3,7 @@
 //setting up our keyboard
 const byte ROWS = 4; 
 const byte COLS = 4; 
-#define led1 10
-#define led2 11
-#define led3 12
-#define led4 13
+
 char hexaKeys[ROWS][COLS] = {
  {'D', 'C', 'B', 'A'},
  {'#', '9', '6', '3'},
@@ -20,19 +17,21 @@ byte colPins[COLS] = {5, 4, 3, 2};
 Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
 
 void resetLED(){
-   digitalWrite(led1,LOW);
-   digitalWrite(led2,LOW);
-   digitalWrite(led3,LOW);
-   digitalWrite(led4,LOW); 
+  PORTB &= ~(1 << 5);
+  PORTB &= ~(1 << 4);
+  PORTB &= ~(1 << 3);
+  PORTB &= ~(1 << 2);
 }
 
 void setup(){
-  Serial.begin(9600);
+  DDRB |= 1 << 5;
+  DDRB |= 1 << 4;
+  DDRB |= 1 << 3;
+  DDRB |= 1 << 2;
 }
   
 void loop(){
   char customKey = customKeypad.getKey();
-  Serial.println(customKey);
 
   switch(customKey){
     case '0':
@@ -40,76 +39,80 @@ void loop(){
       break;
     case '1':
       resetLED();
-      digitalWrite(led4,HIGH);
+      PORTB |= 1 << 5;
+      _delay_ms(1000);
       break;
     case '2':
       resetLED();
-      digitalWrite(led3,HIGH);
+      PORTB |= 1 << 4;
+      _delay_ms(1000);
       break;
     case '3':
       resetLED();
-      digitalWrite(led3,HIGH);
-      digitalWrite(led4,HIGH);
+      PORTB |= 1 << 4;
+      PORTB |= 1 << 5;
+      _delay_ms(1000);
       break;
     case '4':
       resetLED();
-      digitalWrite(led2,HIGH);
+      PORTB |= 1 << 3;
+      _delay_ms(1000);
       break;
     case '5':
       resetLED();
-      digitalWrite(led2,HIGH);
-      digitalWrite(led4,HIGH);
-      delay(1000);
+      PORTB |= 1 << 3;
+      PORTB |= 1 << 5;
+      _delay_ms(1000);
       break; 
     case '6':
       resetLED();
-      digitalWrite(led2,HIGH);
-      digitalWrite(led3,HIGH);
-      delay(1000);
+      PORTB |= 1 << 3;
+      PORTB |= 1 << 4;
+      _delay_ms(1000);
       break;
     case '7':
       resetLED();
-      digitalWrite(led2,HIGH);
-      digitalWrite(led3,HIGH);
-      digitalWrite(led4,HIGH);
-      delay(1000);
+      PORTB |= 1 << 3;
+      PORTB |= 1 << 4;
+      PORTB |= 1 << 5;
+      _delay_ms(1000);
       break;
     case '8':
       resetLED();
-      digitalWrite(led1,HIGH);
-      delay(1000);
+      PORTB |= 1 << 2;
+      _delay_ms(1000);
       break;
     case '9':
       resetLED();
-      digitalWrite(led1,HIGH);
-      digitalWrite(led4,HIGH);
-      delay(1000);
+      PORTB |= 1 << 2;
+      PORTB |= 1 << 5;
+      _delay_ms(1000);
       break;
     case 'A':
       resetLED();
-      digitalWrite(led1,HIGH);
-      digitalWrite(led3,HIGH);
-      delay(1000);
+      PORTB |= 1 << 2;
+      PORTB |= 1 << 4;
+      _delay_ms(1000);
       break;
     case 'B':
       resetLED();
-      digitalWrite(led1,HIGH);
-      digitalWrite(led3,HIGH);
-      digitalWrite(led4,HIGH);
-      delay(1000);
+      PORTB |= 1 << 2;
+      PORTB |= 1 << 4;
+      PORTB |= 1 << 5;
+      _delay_ms(1000);
       break;
     case 'C':
       resetLED();
-      digitalWrite(led1,HIGH);
-      digitalWrite(led2,HIGH);
-      delay(1000);
+      PORTB |= 1 << 2;
+      PORTB |= 1 << 3;
+      _delay_ms(1000);
       break;
     case 'D':
       resetLED();
-      digitalWrite(led1,HIGH);
-      digitalWrite(led2,HIGH);
-      digitalWrite(led4,HIGH);
-      delay(1000);
+      PORTB |= 1 << 2;
+      PORTB |= 1 << 3;
+      PORTB |= 1 << 5;
+      _delay_ms(1000);
       break;
     default:
       break;
